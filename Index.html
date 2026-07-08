@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Builder — Websites for Lagos businesses</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --ink: #16233F;
+    --indigo: #2F4C7C;
+    --indigo-soft: #4A6796;
+    --gold: #E3A857;
+    --gold-deep: #C98A38;
+    --chalk: #F7F5EF;
+    --card: #FFFFFF;
+    --line: rgba(22,35,63,0.12);
+    --text: #1A1A1A;
+    --text-soft: rgba(22,35,63,0.66);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--chalk);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Fraunces', serif; color:var(--ink); line-height:1.05;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:40;
+    background:rgba(247,245,239,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px;}
+  .wordmark{font-family:'Fraunces', serif; font-weight:600; font-size:1.25rem; letter-spacing:-0.01em; display:flex; align-items:center; gap:8px;}
+  .wordmark .dot{width:9px; height:9px; border-radius:50%; background:var(--gold); display:inline-block;}
+  .nav-cta{
+    background:var(--ink); color:var(--chalk); padding:10px 18px; border-radius:100px;
+    font-weight:600; font-size:0.88rem; transition:background 0.2s ease;
+  }
+  .nav-cta:hover{background:var(--indigo);}
+
+  /* HERO */
+  header.hero{padding:76px 0 40px;}
+  .eyebrow{
+    font-size:0.78rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--gold-deep); margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:""; width:26px; height:1px; background:var(--gold-deep);}
+  .hero h1{font-size:clamp(2.3rem, 5vw, 3.6rem); font-weight:600; max-width:15ch; letter-spacing:-0.01em;}
+  .hero h1 em{font-style:italic; color:var(--indigo); font-weight:500;}
+  .hero p.lede{
+    margin-top:22px; font-size:1.1rem; color:var(--text-soft); max-width:46ch; line-height:1.6;
+  }
+  .hero-ctas{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--gold); color:var(--ink); padding:14px 26px; border-radius:100px;
+    font-weight:700; font-size:0.95rem; display:inline-flex; align-items:center; gap:8px;
+    transition:transform 0.2s ease, background 0.2s ease;
+  }
+  .btn-primary:hover{background:var(--gold-deep); transform:translateY(-2px);}
+  .btn-ghost{
+    border:1.5px solid var(--line); padding:13px 24px; border-radius:100px; font-weight:600; font-size:0.95rem;
+    color:var(--ink); transition:border-color 0.2s ease, background 0.2s ease;
+  }
+  .btn-ghost:hover{border-color:var(--indigo); background:rgba(47,76,124,0.05);}
+
+  /* COMPARISON SIGNATURE ELEMENT */
+  .compare-section{padding:20px 0 90px;}
+  .compare-frame{
+    position:relative; border-radius:20px; overflow:hidden; border:1px solid var(--line);
+    box-shadow:0 30px 60px -30px rgba(22,35,63,0.35); background:var(--card);
+    aspect-ratio:16/9; max-height:480px;
+  }
+  .compare-layer{position:absolute; inset:0; display:flex; flex-direction:column;}
+  .layer-label{
+    position:absolute; top:16px; font-size:0.72rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+    padding:6px 12px; border-radius:100px; z-index:5;
+  }
+  .layer-before{background:#EDEBE3;}
+  .layer-before .layer-label{left:16px; background:rgba(22,35,63,0.85); color:#fff;}
+  .layer-after{background:linear-gradient(135deg, var(--ink), var(--indigo)); clip-path:inset(0 0 0 50%);}
+  .layer-after .layer-label{right:16px; background:var(--gold); color:var(--ink);}
+
+  .mock-maps{padding:56px 40px; height:100%; display:flex; flex-direction:column; gap:14px; justify-content:center;}
+  .mock-maps .m-title{font-family:'Fraunces',serif; font-size:1.5rem; color:var(--ink); font-weight:600;}
+  .mock-maps .m-stars{color:var(--gold-deep); font-size:0.95rem; letter-spacing:2px;}
+  .mock-maps .m-row{height:10px; background:rgba(22,35,63,0.12); border-radius:6px; width:70%;}
+  .mock-maps .m-row.short{width:40%;}
+  .mock-maps .m-chip{
+    margin-top:6px; display:inline-flex; width:fit-content; font-size:0.75rem; padding:5px 12px;
+    border-radius:100px; background:rgba(22,35,63,0.08); color:var(--text-soft); font-weight:600;
+  }
+
+  .mock-site{padding:44px 40px; height:100%; display:flex; flex-direction:column; gap:16px; justify-content:center; color:#fff;}
+  .mock-site .m-title{font-family:'Fraunces',serif; font-size:1.7rem; font-weight:600;}
+  .mock-site .m-sub{font-size:0.85rem; color:rgba(255,255,255,0.7); max-width:34ch;}
+  .mock-site .m-btn{
+    margin-top:6px; width:fit-content; background:var(--gold); color:var(--ink); font-size:0.78rem;
+    font-weight:700; padding:9px 18px; border-radius:100px;
+  }
+  .mock-site .m-cards{display:flex; gap:10px; margin-top:6px;}
+  .mock-site .m-card{width:64px; height:44px; background:rgba(255,255,255,0.12); border-radius:8px; border:1px solid rgba(255,255,255,0.18);}
+
+  .compare-slider{
+    position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:ew-resize; z-index:10; margin:0;
+    -webkit-appearance:none;
+  }
+  .compare-handle{
+    position:absolute; top:0; bottom:0; left:50%; width:0; z-index:6; pointer-events:none;
+    transform:translateX(-1px);
+  }
+  .compare-handle::before{content:""; position:absolute; top:0; bottom:0; left:0; width:2px; background:var(--gold);}
+  .compare-handle::after{
+    content:"⇔"; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:38px; height:38px; background:var(--gold); color:var(--ink); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:1rem; box-shadow:0 6px 16px rgba(0,0,0,0.25);
+  }
+  .compare-caption{
+    text-align:center; margin-top:16px; font-size:0.85rem; color:var(--text-soft);
+  }
+
+  /* SECTION HEADERS */
+  .section-tag{
+    font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--indigo);
+    margin-bottom:12px;
+  }
+  section{padding:80px 0;}
+  section.alt{background:var(--card); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .section-head{max-width:52ch; margin-bottom:48px;}
+  .section-head h2{font-size:clamp(1.7rem,3vw,2.3rem); font-weight:600;}
+  .section-head p{margin-top:14px; color:var(--text-soft); font-size:1.02rem; line-height:1.6;}
+
+  /* SERVICES */
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .service-card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px; padding:30px 26px;
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .service-card:hover{transform:translateY(-4px); box-shadow:0 20px 40px -24px rgba(22,35,63,0.3);}
+  .service-num{font-family:'Fraunces',serif; font-size:0.85rem; color:var(--gold-deep); font-weight:700; margin-bottom:14px;}
+  .service-card h3{font-size:1.2rem; font-weight:600; margin-bottom:10px;}
+  .service-card p{color:var(--text-soft); font-size:0.94rem; line-height:1.55;}
+
+  /* PROCESS */
+  .process-list{display:flex; flex-direction:column; border-top:1px solid var(--line);}
+  .process-item{
+    display:grid; grid-template-columns:70px 1fr; gap:24px; padding:28px 0; border-bottom:1px solid var(--line);
+  }
+  .process-item .p-num{font-family:'Fraunces',serif; font-size:1.6rem; color:var(--gold-deep); font-weight:600;}
+  .process-item h3{font-size:1.15rem; font-weight:600; margin-bottom:6px;}
+  .process-item p{color:var(--text-soft); font-size:0.94rem; max-width:60ch; line-height:1.55;}
+
+  /* CONCEPTS GALLERY */
+  .concept-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .concept-card{border-radius:16px; overflow:hidden; border:1px solid var(--line); background:var(--card);}
+  .concept-visual{height:150px; display:flex; align-items:center; justify-content:center; position:relative;}
+  .concept-visual span{
+    position:absolute; top:12px; left:12px; background:rgba(255,255,255,0.85); color:var(--ink);
+    font-size:0.68rem; font-weight:700; padding:4px 10px; border-radius:100px; letter-spacing:0.03em;
+  }
+  .concept-body{padding:18px 20px;}
+  .concept-body h4{font-family:'Fraunces',serif; font-weight:600; font-size:1.05rem; margin-bottom:4px;}
+  .concept-body p{font-size:0.85rem; color:var(--text-soft);}
+
+  .c1{background:linear-gradient(135deg,#3E2723,#8D5B3F);}
+  .c2{background:linear-gradient(135deg,#3A1F2B,#8C4B63);}
+  .c3{background:linear-gradient(135deg,#1F2E3A,#4A6B87);}
+
+  /* PRICING */
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .price-card{
+    border-radius:18px; padding:34px 30px; border:1px solid var(--line); background:var(--card);
+  }
+  .price-card.highlight{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .price-card.highlight .text-soft, .price-card.highlight p{color:rgba(255,255,255,0.72);}
+  .price-card h3{font-size:1.3rem; font-weight:600; margin-bottom:6px;}
+  .price-card.highlight h3{color:#fff;}
+  .price-tag{font-family:'Fraunces',serif; font-size:2.1rem; font-weight:600; margin:14px 0 18px;}
+  .price-card ul{list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:24px;}
+  .price-card li{font-size:0.92rem; padding-left:22px; position:relative; color:var(--text-soft);}
+  .price-card.highlight li{color:rgba(255,255,255,0.85);}
+  .price-card li::before{content:"—"; position:absolute; left:0; color:var(--gold-deep);}
+  .price-card.highlight li::before{color:var(--gold);}
+
+  /* FOOTER / CONTACT */
+  footer{padding:90px 0 60px; background:var(--ink); color:#fff;}
+  footer h2{color:#fff; font-size:clamp(1.9rem,4vw,2.6rem); font-weight:600; max-width:16ch;}
+  footer p{color:rgba(255,255,255,0.65); margin-top:16px; max-width:44ch; line-height:1.6;}
+  .footer-bottom{
+    margin-top:60px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.14);
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    font-size:0.82rem; color:rgba(255,255,255,0.5);
+  }
+
+  /* FLOATING WHATSAPP */
+  .float-wa{
+    position:fixed; bottom:22px; right:22px; z-index:50; background:#25D366; color:#fff;
+    width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 26px rgba(0,0,0,0.25); font-size:1.5rem; transition:transform 0.2s ease;
+  }
+  .float-wa:hover{transform:scale(1.07);}
+
+  @media (max-width:820px){
+    .grid-3, .concept-grid, .grid-2{grid-template-columns:1fr;}
+    .process-item{grid-template-columns:44px 1fr;}
+    .compare-frame{aspect-ratio:4/5; max-height:560px;}
+    .mock-maps, .mock-site{padding:30px 24px;}
+    footer .footer-bottom{flex-direction:column; align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="wordmark"><span class="dot"></span>Web Builder</div>
+    <a href="https://wa.me/2340000000000" class="nav-cta">Chat on WhatsApp</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Websites for Lagos businesses</div>
+    <h1>Your shop already has <em>customers.</em><br>Now give them a website.</h1>
+    <p class="lede">Right now people find you on Google Maps, and that's it. I build simple, fast websites for local restaurants, salons, boutiques and gyms — so customers can see your menu, your work, and reach you in one tap.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/2340000000000" class="btn-primary">Message me on WhatsApp →</a>
+      <a href="#work" class="btn-ghost">See example concepts</a>
+    </div>
+  </div>
+</header>
+
+<section class="compare-section">
+  <div class="wrap">
+    <div class="compare-frame" id="compareFrame">
+      <div class="compare-layer layer-before">
+        <span class="layer-label">Google listing only</span>
+        <div class="mock-maps">
+          <div class="m-title">Sebotimo Food Canteen</div>
+          <div class="m-stars">★★★★☆ · 176 reviews</div>
+          <div class="m-row"></div>
+          <div class="m-row short"></div>
+          <div class="m-chip">No website · Directions only</div>
+        </div>
+      </div>
+      <div class="compare-layer layer-after">
+        <span class="layer-label">With a real site</span>
+        <div class="mock-site">
+          <div class="m-title">Sebotimo Foods</div>
+          <div class="m-sub">Home-style Nigerian meals, made fresh daily in Agege. Order for pickup or delivery.</div>
+          <div class="m-cards">
+            <div class="m-card"></div><div class="m-card"></div><div class="m-card"></div>
+          </div>
+          <div class="m-btn">Order on WhatsApp</div>
+        </div>
+      </div>
+      <input type="range" min="0" max="100" value="50" class="compare-slider" id="compareSlider" aria-label="Drag to compare Google listing vs real website">
+      <div class="compare-handle" id="compareHandle"></div>
+    </div>
+    <p class="compare-caption">Drag to compare — same business, before and after a real website.</p>
+  </div>
+</section>
+
+<section class="alt" id="work">
+  <div class="wrap">
+    <div class="section-tag">What I build</div>
+    <div class="section-head">
+      <h2>Three ways to get online</h2>
+      <p>Every business is different, so the site is built around how you actually work — whether that's showing a menu, a product catalog, or just convincing someone to book you.</p>
+    </div>
+    <div class="grid-3">
+      <div class="service-card">
+        <div class="service-num">One page</div>
+        <h3>Simple business site</h3>
+        <p>A single clean page with your story, photos, hours, location and a WhatsApp button. Perfect for salons, restaurants and gyms.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">Catalog</div>
+        <h3>Shop / product showcase</h3>
+        <p>Show off your products or menu with prices and photos, so customers can browse before they message you to order.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">Custom</div>
+        <h3>Booking or contact forms</h3>
+        <p>For businesses that take appointments or orders — a simple form that sends straight to your phone or email.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-tag">How it works</div>
+    <div class="section-head">
+      <h2>From chat to live site</h2>
+    </div>
+    <div class="process-list">
+      <div class="process-item">
+        <div class="p-num">01</div>
+        <div><h3>We chat on WhatsApp</h3><p>Tell me about your business — what you sell, your photos, and what you want customers to do when they land on the page.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="p-num">02</div>
+        <div><h3>I design and build it</h3><p>You'll see a preview link within a few days. We go back and forth on small changes until it feels right.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="p-num">03</div>
+        <div><h3>It goes live</h3><p>Your site goes live with your own link, ready to share on Instagram, business cards, and Google.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-tag">Concept previews</div>
+    <div class="section-head">
+      <h2>What your site could look like</h2>
+      <p>A few concept mockups for common business types — not client work yet, just a sense of direction. Yours would be built around your own brand and photos.</p>
+    </div>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <div class="concept-visual c1"><span>Concept</span></div>
+        <div class="concept-body"><h4>Local restaurant</h4><p>Menu, hours, and order-on-WhatsApp button</p></div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-visual c2"><span>Concept</span></div>
+        <div class="concept-body"><h4>Hair & beauty salon</h4><p>Services, price list, and before/after gallery</p></div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-visual c3"><span>Concept</span></div>
+        <div class="concept-body"><h4>Boutique / fashion store</h4><p>Product catalog with prices and direct ordering</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-tag">Pricing</div>
+    <div class="section-head">
+      <h2>Simple, upfront pricing</h2>
+      <p>No hidden costs. Final price depends on how many pages and features you need — this covers most small businesses.</p>
+    </div>
+    <div class="grid-2">
+      <div class="price-card">
+        <h3>Starter</h3>
+        <div class="price-tag">₦40,000</div>
+        <ul>
+          <li>One-page site</li>
+          <li>Mobile-friendly design</li>
+          <li>WhatsApp contact button</li>
+          <li>Delivered in 3–5 days</li>
+        </ul>
+        <a href="https://wa.me/2340000000000" class="btn-ghost" style="display:block; text-align:center;">Ask about this</a>
+      </div>
+      <div class="price-card highlight">
+        <h3>Growth</h3>
+        <div class="price-tag">₦75,000</div>
+        <ul>
+          <li>Up to 4 pages</li>
+          <li>Product/menu catalog</li>
+          <li>Contact or booking form</li>
+          <li>Delivered in 7–10 days</li>
+        </ul>
+        <a href="https://wa.me/2340000000000" class="btn-primary" style="display:block; text-align:center;">Ask about this</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2>Ready to get your business online?</h2>
+    <p>Send a message on WhatsApp with a bit about your business — I'll reply with ideas and a rough quote, usually within a day.</p>
+    <a href="https://wa.me/2340000000000" class="btn-primary" style="margin-top:26px;">Message me on WhatsApp →</a>
+    <div class="footer-bottom">
+      <span>Web Builder · Lagos, Nigeria</span>
+      <span>Available for new projects</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/2340000000000" class="float-wa" aria-label="Chat on WhatsApp">💬</a>
+
+<script>
+  const slider = document.getElementById('compareSlider');
+  const after = document.querySelector('.layer-after');
+  const handle = document.getElementById('compareHandle');
+  function updateCompare(val){
+    after.style.clipPath = `inset(0 0 0 ${val}%)`;
+    handle.style.left = val + '%';
+  }
+  slider.addEventListener('input', (e) => updateCompare(e.target.value));
+  updateCompare(50);
+</script>
+
+</body>
+</html>
